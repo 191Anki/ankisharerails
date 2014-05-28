@@ -5,6 +5,10 @@ Rails.application.routes.draw do
      end
   end
   
+  resources :upload
+
+  get "home/download"  
+
   root "anki#index"
   #get 'anki/index'
    match ':controller(/:action(/:id))', :via => :get
