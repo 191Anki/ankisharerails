@@ -2,11 +2,12 @@
 
 <p>To be changed to a anki importer</p>
 
-<%= form_tag ({:action => uploadFile}, :multipart => true) do %>
-
-<p><label for="upload_file">Select File</label> 
-   <%= file_field 'upload', 'datafile' %></p>
-
-<%= submit_tag "Upload" %>
-
+<%= form_tag(@upload_file, :action=>'upload', :multipart => true) do %>
+<div class="field">
+  <%= label_tag :file %>
+  <%= file_field_tag :file %>
+</div>
+<div class="actions">
+  <%= submit_tag 'Submit' %>
+</div>
 <% end %>

@@ -1,7 +1,16 @@
 Rails.application.routes.draw do
+  resources :courses, :only => [ :show ] do
+     member do
+        post :upload
+     end
+  end
+  
   root "anki#index"
   #get 'anki/index'
-  match ':controller(/:action(/:id))', :via => :get 
+   match ':controller(/:action(/:id))', :via => :get
+  
+  post ':controller(/:action(/:id(.:format)))'
+  get ':controller(/:action(/:id(.:format)))' 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

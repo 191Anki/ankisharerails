@@ -1,9 +1,10 @@
 class UploadController < ApplicationController
-  def index
-    render :file => 'app\view\upload\uploadfile.html.erb'
-  end
-  def uploadFile
-    post = DataFile.save(params[:upload])
-    render :text => "File has been uploaded successfully"
+ 
+  def upload
+    uploaded_io = params[:file]
+    File.open(Rails.root.join('public/data', 'data', uploaded_io.original_filename), 'wb') do |file|
+	file.write(uploaded_io.read)
   end
 end
+end
+
