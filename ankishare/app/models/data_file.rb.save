@@ -1,6 +1,7 @@
 class DataFile < ActiveRecord::Base
   attr_accessor :upload
   
+  
   def self.save(upload)
     name = upload['datafile'].original_filename
     directory = 'public/data'
