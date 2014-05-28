@@ -5,9 +5,9 @@ Rails.application.routes.draw do
      end
   end
   
-  resources :upload
+#  resources :upload
 
-  get "home/download"  
+#  get "home/download"  
 
   root "anki#index"
   #get 'anki/index'
