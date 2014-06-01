@@ -1,0 +1,12 @@
+<h1>Decks to Download</h1>
+<table>
+<ul>
+<% @files = Dir.glob("public/data/*.*") %>
+<% for file in @files %>
+<% new_file = file.to_s %>
+<% new_file2 = new_file.gsub('public/data/', '') %>
+<li> <%= link_to new_file2, :action => :getfile, :path =>@new_file, :type => new_file %></li>
+<% end %>
+</ul>
+</table>
+<% end %>
