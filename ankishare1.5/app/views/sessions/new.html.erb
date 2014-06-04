@@ -1,5 +1,24 @@
-<h1>Log in</h1>
+<style>
+h2{
+	font-size: 35px;
+	font-family: Lucida Sans Unicode;
+	line-height:30%;
+	
+}
+</style>
+<h1>
+<div align="center"><a href="ankishare.com"><img src="http://i.imgur.com/v8qikwv.png" title="Logo" width="1000" height="100"/></a>
+</div>
+</h1>
 
+<br>
+
+<h2>
+<center>Welcome</center>
+</div>
+
+</h2>
+<center>
 <%= form_tag sessions_path do%>
   <p>
     <%= label_tag :email %><br />
@@ -11,4 +30,5 @@
   </p>
 
   <p class="button"><%= submit_tag "Log in" %></p>
+</center>
 <% end %>
