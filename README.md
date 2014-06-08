@@ -8,3 +8,5 @@ http://rubyonrailshelp.wordpress.com/2014/01/03/creating-user-and-admin-model-us
 http://wtf.tw/ref/ruby.pdf
 
 http://guides.rubyonrails.org/getting_started.html
+
+http://richonrails.com/articles/allowing-file-uploads-with-carrierwave
