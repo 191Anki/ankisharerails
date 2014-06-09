@@ -1,0 +1,54 @@
+<style>
+h2{
+font-size: 35px;
+font-family: Lucida Sans Unicode;
+line-height:30%;
+
+}
+h3{
+font-size: 35px;
+font-family: Lucida Sans Unicode;
+line-height:30%;
+}
+</style>
+
+<h1>
+<div align="center"><a href="ankishare.com"><img src="http://i.imgur.com/v8qikwv.png" title="Logo" width="1000" height="100"/></a></div></h1>
+<br>
+<br>
+<br>
+</div>
+
+<% if !flash[:notice].blank? %>
+  <div class="alert alert-info">
+  <%= flash[:notice] %>
+  </div>
+<% end %>
+<br />
+  <p align="center">
+  <%= link_to "Upload Decks", new_resume_path, class: "btn btn-primary" %>
+  </p>
+<br />
+<br />
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Class</th>
+      <th>Subject</th>
+      <th></th>
+      <th>&nbsp;</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @resumes.each do |resume| %>
+      <tr>
+        <td><%= resume.name %></td>
+        <td>Under Development</td>
+        <td><%= resume.subject %></td>
+        <td><%= link_to "Download Deck", resume.attachment_url %></td>
+        <td><%= button_to "Delete",  resume, method: :delete, class: "btn btn-danger", confirm: "Are you sure that you wish to delete #{resume.name}?" %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
