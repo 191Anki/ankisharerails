@@ -1,12 +1,18 @@
 ankisharerails
 ==============
-#References
-http://stackoverflow.com/questions/13909812/error-ruby-on-rails-encodingundefinedconversionerror-in-coursescontrollerat
+##References
 
-http://rubyonrailshelp.wordpress.com/2014/01/03/creating-user-and-admin-model-using-devise-rails/
+#General Ruby on Rails
 
 http://wtf.tw/ref/ruby.pdf
 
 http://guides.rubyonrails.org/getting_started.html
 
+#Upload 
 http://richonrails.com/articles/allowing-file-uploads-with-carrierwave
+
+#Anki Decks
+
+https://gist.github.com/sartak/3921255
+
+http://railscasts.com/episodes/396-importing-csv-and-excel
