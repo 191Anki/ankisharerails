@@ -48,11 +48,11 @@ line-height:30%;
         <td><%= resume.subject %></td>
         <td><%= link_to "Download Deck", resume.attachment_url %></td>
        <!-- <td><%= button_to "Delete",  resume, method: :delete, class: "btn btn-danger", confirm: "Are you sure that you wish to delete #{resume.name}?" %></td>-->
-        <td>
+        <!--<td>
           <% if can? :destroy, resume %>
             <%= button_to "Delete", resume, method: :delete, class: "btn btn-danger", confirm: "Are you sure you wish to delete #{resume.name}?" %>
           <% end %>
-        </td>
+        </td>-->
      </tr>
     <% end %>
   </tbody>
