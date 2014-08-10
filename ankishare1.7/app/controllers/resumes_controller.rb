@@ -1,4 +1,9 @@
+
 class ResumesController < ApplicationController
+ # before_action :set_user, only: [ :create, :destroy]
+  load_and_authorize_resource
+  skip_authorize_resource 
+
   def index
     @resumes = Resume.all
   end
@@ -8,9 +13,9 @@ class ResumesController < ApplicationController
   end
 
   def create
-    @resume = Resume.new(upload_params)
+    @resume = Resume.new(resume_params)
     if @resume.save
-      redirect_to resumes_path, notice: "#{@resume.name} has been uploaded."
+	redirect_to resumes_path, notice: "#{@resume.name} has been uploaded."
     else
       render "new"
     end
@@ -20,10 +25,11 @@ class ResumesController < ApplicationController
     @resume = Resume.find(params[ :id])
     @resume.destroy
     redirect_to resumes_path, notice: "#{@resume.name} has been deleted."
+    authorize! :destroy, @resume
   end
 
-  private
-    def upload_params
-      params.require(:resume).permit( :name, :subject, :attachment)
+    def resume_params
+      params.require(:resume).permit(:name, :subject, :attachment)
     end
+  
 end

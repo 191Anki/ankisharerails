@@ -29,6 +29,8 @@ line-height:30%;
   <%= link_to "Upload Decks", new_resume_path, class: "btn btn-primary" %>
   </p>
 <br />
+<%= form_for(@category) do |f| %>
+<%= f.select :category, Category.all, :prompt => "Select One" %>
 <br />
 <table class="table table-bordered table-striped">
   <thead>
@@ -57,3 +59,4 @@ line-height:30%;
     <% end %>
   </tbody>
 </table>
+<% end %>

@@ -12,7 +12,8 @@ class UsersController < ApplicationController
     end
   end
   #each user has a user name, email, and password
+  private
   def user_params
-    params.require( :user).permit( :username, :email, :password, :password_confirmation)
+    params.require( :user).permit( :username, :email, :password, :password_confirmation, :role_mask)
   end
 end

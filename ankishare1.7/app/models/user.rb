@@ -12,10 +12,10 @@ class User < ActiveRecord::Base
   validates_uniqueness_of :email
   validates_format_of :email, :with => /\A[\w+\-.]+@uci\.edu\z/i
  
-  acts_as_authentic
+#  acts_as_authentic
   has_many :resumes
   
-  named_scope :with_role, lambda { |role| {:conditions => "roles_mask & #{2**ROLES.index(role.to_s)} > 0 "} }
+  scope :with_role, lambda { |role| {:conditions => "roles_mask & #{2**ROLES.index(role.to_s)} > 0 "} }
   ROLES = %w[admin moderator]
 
   def self.authenticate(email, password)

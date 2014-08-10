@@ -3,21 +3,11 @@ Rails.application.routes.draw do
 
   get 'users/new'
 
-  get 'resumes/index'
-
-  get 'resumes/new'
-
-  get 'resumes/create'
-
-  get 'resumes/destroy'
-  
   get "log_out" => "sessions#destroy", :as => "log_out"
   get "log_in" => 'sessions#new', :as => "log_in"
   get "sign_up" => "users#new", :as => "sign_up"
   get "upload" => "resumes#index", :as => "upload"
 
-  resources :resumes, only: [ :index, :new, :create, :destroy]
-  #resources :resumes
   resources :users
   resources :sessions
 
