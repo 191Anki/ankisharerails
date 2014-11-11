@@ -1,0 +1,21 @@
+%table.table
+  %tr
+    %th Class
+    %th Year
+    %th Professor
+    %th Topic
+    %th Notes
+    %th Uploaded at
+    %th Download
+  - decks.each do |deck|
+    %tr
+      %td= deck.class_name_id
+      %td= deck.year_id
+      %td= deck.professor_id
+      %td= deck.topic_id
+      %td= deck.notes
+      %td= deck.created_at.to_date.to_s(:long)
+      %td= link_to "Download Deck", deck.attachment_url, class: "btn btn-primary"
+
+  = will_paginate decks, renderer: BootstrapPagination::Rails
+

@@ -1,0 +1,30 @@
+<table>
+ <thead>
+  <tr>
+    <th> <%= sortable "Class" %> </th>
+    <th> <%= sortable "Year" %> </th>
+    <th> <%= sortable "Professor" %> </th>
+    <th> <%= sortable "Topic" %> </th>
+    <th> <%= sortable "Notes" %> </th>
+    <th> <%= sortable "Uploaded At" %> </th>
+    <th> Download </th>
+  </tr>
+ </thead>
+ <tbody>
+  <% @decks.each do |deck| %>
+    <tr>
+      <td>
+        <td><%= deck.class_name_id %></td>
+        <td><%= deck.year_id %></td>
+        <td><%= deck.professor_id %></td>
+        <td><%= deck.topic_id %></td>
+        <td><%= deck.notes %></td>
+        <td><%= deck.created_at.to_date.to_s(:long) %></td>
+        <td><%= link_to "Download Deck", deck.attachment_url %></td>
+      </tr>
+    <% end %>
+ </tbody>
+</table>
+
+<%= will_paginate decks, renderer: BootstrapPagination::Rails %>
+

@@ -1,0 +1,55 @@
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,$
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-56452628-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+<% if !@deck.errors.empty? %>
+  <div class="alert alert-error">
+    <ul>
+      <% @deck.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<h1> Deck Upload </h1>
+
+<div class="well">
+  <%= form_for @deck, html: { multipart: true } do |f| %>
+    <%= f.label :author %><br />
+    <%= f.text_field :author %> <br />
+    <%= f.label :year_id %><br />
+    <%= f.select :year_id, [["MS1", 1], ["MS2", 2], ["MS3", 3], ["MS4", 4]] %><br />
+    <%= f.label :class_name_id %><br />
+    <%= f.text_field :class_name_id %><br />
+    <%= f.label :topic_id %><br />
+    <%= f.text_field :topic_id %><br />
+    <%= f.label :professor_id %><br />
+    <%= f.text_field :professor_id %><br />
+    <%= f.label :notes %><br />
+    <%= f.text_area :notes, :cols => "30", :rows => "5" %> <br />
+    <%= f.label :attachment %><br />
+    <%= f.file_field :attachment %> <br />
+    <%= f.submit "Upload", class: "btn btn-primary" %>
+  <% end %>
+</div>
+
+<h2> Deck Upload Form Guidelines </h2>
+  <ul>
+    <li> Author is the student’s (author of the deck) name. This will not be available to those viewing the deck </li>
+    <li> Topic is to the author’s discretion. Try to make it as clear as possible while keeping it short. </li>
+      <p> Ex: Within the class of General Pathology, a student has uploaded a deck with cards pertaining to Lung Pathology. The topic would be “Lung Pathology”. </p>
+    <li> Please input the professor of the particular class you have prepared the deck for. </li>
+    <li> Notes section is to detail any parameters about the topic you feel other students should know about.  Ex. For the Lung Pathology deck, the author would make a note about how this particular deck only included lectures 1-4,and did not include Lung Path 5. </li>
+    <li> Remember that these fields are to help your fellow students narrow down the decks to find the ones they need. Make sure to add any relevant information clearly, and keep it as concise as possible. </li>
+<center>
+  <%= link_to "Back to Homepage", decks_path %>
+</center>
+
+
