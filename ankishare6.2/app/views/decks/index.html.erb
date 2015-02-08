@@ -1,0 +1,198 @@
+<div class="page-header" style="margin-bottom: 20px; text-align:right;">
+  <div class="row">
+    <div class="col-md-8">
+      <p></p>
+    </div>
+    <div class="col-md-1" style="padding:0px;">
+      <p>
+        <%= link_to "Upload Decks", new_deck_path, class: "btn btn-primary" %>
+      </p>
+    </div>
+    <div class="col-md-2" style="padding: 0px;">
+      <p>
+        <%= link_to "Account Settings",  profile_index_path, class: "btn btn-primary" %>
+      </p>
+    </div>
+    <div class="col-md-1" style="padding: 0px;">
+      <p>
+        <%= link_to "FAQ", profile_faq_path, class: "btn btn-primary" %>
+      </p>
+    </div>
+  </div>
+</div>
+
+<div class="page-header-1" style="margin-bottom: 70px; text-align:center;">
+  <h1>
+    <%= image_tag("http://i.imgur.com/v8qikwv.png", :size=>"500x100") %>
+  </h1>
+</div>
+
+<div id='test'>
+  <%= @user.student_year%>
+</div>
+
+<div class="filter" style="font-size: 20px;">
+  <p>Filter</p>
+</div>
+
+<div class="well">
+  <div class="title" style="font-size:25px; text-align:center;">
+    <label> Filter </label>
+  </div>
+  <%= form_for @filterrific do |f| %>
+    <div class="row">
+      <div class="col-md-4">
+        <div class="form-group">
+          <label>Topic</label>
+          <%= f.text_field :with_topic_id, :class => 'filterrific-periodically-observed form-control' %>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="form-group">
+          <label>Professor</label>
+          <%= f.text_field :with_professor_id, :class => 'filterrific-periodically-observed form-control' %>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="form-group">
+          <label>Upload Date</label>
+          <%= f.text_field :with_created_at_gte, :class => 'filterrific-periodically-observed form-control' %>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="form-group">
+          <label>Sorted by</label>
+          <%= f.select :sorted_by, Deck.options_for_sorted_by, {}, { :class => 'form-control' } %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>
+
+<div class="well">
+  <div class="title" style="font-size:25px; text-align:center;">
+    <label> Classes </label>
+  </div>
+  <%= form_for @filterrific do |f| %>
+    <div class="row">
+      <div class="col-md-4">
+        <div class="form-group">
+          <div id='one'>
+            <label>Anatomy</label>
+            <%= f.check_box :with_class_name_id, {}, 'Anatomy & Embryology', '' %></br>
+            <label>Neurosciences</label>
+            <%= f.check_box :with_class_name_id, {}, 'Neurosciences', '' %></br>
+            <label>Histology</label>
+            <%= f.check_box :with_class_name_id, {}, 'Histology', '' %>
+          </div>
+          <div id='two'>
+            <label>Behavioral Science and Medical Ethics II</label>
+            <%= f.check_box :with_class_name_id, {}, 'Behavioral Science and Medical Ethics II', '' %></br>
+            <label>Medical Microbiology</label>
+            <%= f.check_box :with_class_name_id, {}, 'Medical Microbiology', '' %></br>
+            <label>General & Systemic Pathology</label>
+            <%= f.check_box :with_class_name_id, {}, 'General & Systemic Pathology', '' %>
+          </div>
+          <div id='three'>
+            <label>Obstetrics & Gynecology</label>
+            <%= f.check_box :with_class_name_id, {}, 'Obstetrics & Gynecology', '' %></br>
+            <label>Surgery</label>
+            <%= f.check_box :with_class_name_id, {}, 'Surgery', '' %></br>
+            <label>Inpatient & Ambulatory Medicine'</label>
+            <%= f.check_box :with_class_name_id, {}, 'Inpatient & Ambulatory Medicine', '' %></br>
+            <label>Pediatrics</label>
+            <%= f.check_box :with_class_name_id, {}, 'Pediatrics', '' %>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="form-group">
+          <div id='one'>
+            <label>Behavioral Science and Medical Ethics</label>
+            <%= f.check_box :with_class_name_id, {}, 'Behavioral Science and Medical Ethics', '' %></br>
+            <label>Medical Genetics</label>
+            <%= f.check_box :with_class_name_id, {}, 'Medical Genetics', '' %></br>
+            <label>Medical Physiology</label>
+            <%= f.check_box :with_class_name_id, {}, 'Medical Physiology', '' %>
+          </div>
+          <div id='two'>
+            <label>Clinical Pathology</label>
+            <%= f.check_box :with_class_name_id, {}, 'Clinical Pathology', '' %></br>
+            <label>Medical Pathology</label>
+            <%= f.check_box :with_class_name_id, {}, 'Medical Pathology', '' %></br>
+            <label>Clinical Foundations II</label>
+            <%= f.check_box :with_class_name_id, {}, 'Clinical Foundations II', '' %>
+          </div>
+          <div id='three'>
+            <label>Psychiatry</label>
+            <%= f.check_box :with_class_name_id, {}, 'Psychiatry', '' %></br>
+            <label>Radiology</label>
+            <%= f.check_box :with_class_name_id, {}, 'Radiology', '' %></br>
+            <label>Neurosciences</label>
+            <%= f.check_box :with_class_name_id, {}, 'Neurosciences', '' %></br>
+            <label>Clinical Foundations III</label>
+            <%= f.check_box :with_class_name_id, {}, 'Clinical Foundations III', '' %>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="form-group">
+          <div id='one'>
+            <label>Immunology</label>
+            <%= f.check_box :with_class_name_id, {}, 'Immunology', '' %></br>
+            <label>Clinical Foundations</label>
+            <%= f.check_box :with_class_name_id, {}, 'Clinical Foundations', '' %></br>
+            <label>Medical Biochemistry and Molecular Biology</label>
+            <%= f.check_box :with_class_name_id, {}, 'Medical Biochemistry and Molecular Biology', '' %></br>
+          </div>
+          <div id='three'>
+            <label>Family Medicine</label>
+            <%= f.check_box :with_class_name_id, {}, 'Family Medicine', '' %></br>
+            <label>Senior Intensive Care Unit</label>
+            <%= f.check_box :with_class_name_id, {}, 'Senior Intensive Care Unit', '' %></br>
+            <label>CF IV</label>
+            <%= f.check_box :with_class_name_id, {}, 'CF IV', '' %></br>
+            <label>Senior Sub Internship</label>
+            <%= f.check_box :with_class_name_id, {}, 'Senior Sub Internship', '' %>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  <% end %>
+</div>
+
+<div id="results">
+  <%= render :partial => 'decks/list', :locals => { :decks => @decks } %>
+</div>
+
+<script>
+  function showClasses(){
+    var studentYear = document.getElementById('test').innerHTML;
+    
+    if (studentYear == 1){
+      $("div#two").hide();
+      $("div#three").hide();
+    } else if(studentYear == 2){
+      $("div#one").hide();
+      $("div#three").hide();
+    } else{
+      $("div#two").hide();
+      $("div#one").hide();
+    }
+
+  }
+
+  function GetElementInsideContainer(containerID, childID) {
+    var elm = document.getElementById(childID);
+    var parent = elm ? elm.parentNode : {};
+    return (parent.id && parent.id === containerID) ? elm : {};
+  }
+
+  /*this just runs all the javascript only when the DOM is ready*/
+  $(document).ready(function(){
+    showClasses();
+    $("div#test").hide();
+  });  
+</script>
+

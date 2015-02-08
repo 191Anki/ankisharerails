@@ -1,0 +1,60 @@
+%table.table
+  %tr
+    %th 
+      .row
+        .col-md-3
+          %p Class
+        .col-md-2
+          %p= link_to "&#9650;".html_safe
+          %p= link_to "&#9660;".html_safe
+
+    %th 
+      .row
+        .col-md-4
+          %p Year
+        .col-md-2
+          %p= link_to "&#9650;".html_safe
+          %p= link_to "&#9660;".html_safe
+
+    %th 
+      .row
+        .col-md-6
+          %p Professor
+        .col-md-2
+          %p= link_to "&#9650;".html_safe
+          %p= link_to "&#9660;".html_safe
+
+    %th 
+      .row
+        .col-md-4
+          %p Topic
+        .col-md-2
+          %p= link_to "&#9650;".html_safe
+          %p= link_to "&#9660;".html_safe
+
+    %th Notes
+    %th 
+      .row
+        .col-md-4
+          %p Upload Date
+        .col-md-2
+          %p= link_to "&#9650;".html_safe
+          %p= link_to "&#9660;".html_safe
+
+    %th Download
+    %th View
+    %th Number of downloads
+     
+  - decks.each do |deck|
+    %tr
+      %td= deck.class_name_id
+      %td= deck.year_id
+      %td= deck.professor_id
+      %td= deck.topic_id
+      %td= deck.notes
+      %td= deck.created_at.to_date.to_s(:long)
+      %td= link_to "Download Deck", decks_repackage_path(:id =>deck.id), class: "btn btn-primary"
+      %td= link_to "View", cards_show_path(:id => deck.id), class: "btn btn-primary"
+      %td= deck.counter  
+  = will_paginate decks, renderer: BootstrapPagination::Rails
+

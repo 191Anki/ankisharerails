@@ -1,0 +1,29 @@
+<center>
+  <%= link_to(image_tag("http://i.imgur.com/v8qikwv.png", :size=>"500x100", :alt=>"Ankishare Home", :title=>"Home", :controller=>"decks_controller", :action=>"index"),"/")%>
+</center>
+
+<center>
+  <h1> Deck Title </h1>
+</center>
+
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th> Flashcard Front </th>
+      <th> Flashcard Back </th>
+      <th> </th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @cards.each do |card| %>
+      <tr>
+        <td><%= raw card.card_front %></td>
+        <td><%= raw card.card_back %></td>
+        <td><%= link_to "Edit Card",{:id => card.id, :action => 'edit'} , class: "btn btn-primary" %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+
+

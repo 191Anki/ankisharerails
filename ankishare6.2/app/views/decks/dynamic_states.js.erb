@@ -1,0 +1,11 @@
+
+
+var image_html = '<%= link_to(image_tag("http://i.imgur.com/v8qikwv.png", :size=>"500x500", :alt=>"Ankishare Home", :title=>"Home", :controller=>"decks_controller", :action=>"index"),"/")%>';
+
+function showImage(){
+	$("#test").html(image_html);
+
+}
+$(window).load(function() {
+    showImage();
+}); 

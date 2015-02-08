@@ -1,0 +1,14 @@
+<center>
+  <%= link_to(image_tag("http://i.imgur.com/v8qikwv.png", :size=>"500x100", :alt=>"Ankishare Home", :title=>"Home", :controller=>"decks_controller", :action=>"index"),"/")%>
+</center>
+
+<h1> My Profile </h1>
+
+
+<%= link_to "Change Your User Information", edit_user_registration_path %>
+
+<%= button_to [@filterrific.with_class_name_id, "Histology"] %>
+  
+<h3> View/Delete your Decks </h3>
+  <%= render "list" %>
+

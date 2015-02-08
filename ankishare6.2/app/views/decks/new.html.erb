@@ -1,0 +1,129 @@
+
+
+<% if !@deck.errors.empty? %>
+  <div class="alert alert-error">
+    <ul>
+      <% @deck.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<center>
+
+<%= link_to(image_tag("http://i.imgur.com/v8qikwv.png", :size=>"500x100", :alt=>"Ankishare Home", :title=>"Home", :controller=>"decks_controller", :action=>"index"),"/")%>
+<div id='test'>
+
+  <%= @user.student_year%>
+  
+</div>
+</center> 
+<div class="row">
+<div class="col-xs-6">
+<h1> Deck Upload </h1>
+
+<div class="well">
+  <%= form_for @deck, html: { multipart: true } do |f| %>
+    <%= f.label :author %><br />
+    <%= f.text_field :author %> <br />
+    <%= f.label :year_id %><br />
+    <%=  f.select :year_id, [ ['MS1',1], ['MS2',2], ['MS3',3], ['MS4',4] ]%><br />
+    <%= f.label :class_name_id %><br />
+    <%= f.select :class_name_id, [ ['Histology'] ]%><br />
+    <%= f.label :topic_id %><br />
+    <%= f.text_field :topic_id %><br />
+    <%= f.label :professor_id %><br />
+    <%= f.text_field :professor_id %><br />
+    <%= f.label :notes %><br />
+    <%= f.text_area :notes, :cols => "30", :rows => "5" %> <br />
+    <%= f.label :attachment %><br />
+    <%= f.file_field :attachment %> <br />
+    <%= f.submit "Upload", class: "btn btn-primary" %>
+  <% end %>
+</div>
+</div>
+<div class ="col-xs-6">
+<h2> Deck Upload Form Guidelines!!!!!!!!!!!!!! </h2>
+  <ul>
+    <li> Author is the student’s (author of the deck) name. This will not be available to those viewing the deck </li>
+    <li> Topic is to the author’s discretion. Try to make it as clear as possible while keeping it short. </li>
+      <p> Ex: Within the class of General Pathology, a student has uploaded a deck with cards pertaining to Lung Pathology. The topic would be “Lung Pathology”. </p>
+    <li> Please input the professor of the particular class you have prepared the deck for. </li>
+    <li> Notes section is to detail any parameters about the topic you feel other students should know about.  Ex. For the Lung Pathology deck, the author would make a note about how this particular deck only included lectures 1-4,and did not include Lung Path 5. </li>
+    <li> Remember that these fields are to help your fellow students narrow down the decks to find the ones they need. Make sure to add any relevant information clearly, and keep it as concise as possible. </li>
+</div>
+</div>
+<script>
+
+/*the function makeButtons takes in the student's year and assigns it the course list given that year. then the for-loop runs through the course list and makes a long-ass string with the HTML code for all the buttons. the function RETURNS that long-ass string of HTML buttons. 
+also note that regardless if you identify as ms3 or ms4, itll give u the ms3 list since they're the same anyway.*/
+
+function makeButtons(studentYear){
+  var ms1 = ["Anatomy & Embryology", "Neurosciences", "Histology", 
+             "Behavioral Science and Medical Ethics", "Medical Genetics", 
+             "Medical Physiology", "Immunology", "Clinical Foundations", 
+             "Medical Biochemistry and Molecular Biology"];
+
+  var ms2 = ["Behavioral Science and Medical Ethics II", "Medical Microbiology", "General & Systemic Pathology", 
+             "Clinical Pathology", "Medical Pharmacology", "Clinical Foundations II"];
+   
+  var ms3 = ["Obsetrics & Gynecology", "Surgery", "Inpatient & Ambulatory Medicine", 
+             "Pediatrics", "Psychiatry", "Radiology", "CF IV", "Emergency Medicine", 
+             "Clinical Foundations II", "Family Medicine", "Senior Intensive Care Unit", 
+             "Neuroscience", "Senior Sub Internship"];
+
+  var ms4 = ["Obsetrics & Gynecology", "Surgery", "Inpatient & Ambulatory Medicine", 
+             "Pediatrics", "Psychiatry", "Radiology", "CF IV", "Emergency Medicine", 
+             "Clinical Foundations II", "Family Medicine", "Senior Intensive Care Unit", 
+             "Neuroscience", "Senior Sub Internship"];
+  if (studentYear == "ms1"){
+    classList = ms1;
+  } else if (studentYear == "ms2"){
+    classList = ms2;
+    }
+    else {
+    classList = ms3;
+    }
+  
+
+  
+  var buttonList = "";
+  classCount = classList.length;
+  
+  for (i = 0; i < classCount; i++){
+    buttonList +='<button>' + classList[i] + '</button>&nbsp;&nbsp;&nbsp;';
+  }
+  return buttonList;
+}
+
+
+/*this function is called once the DOM is ready, it grabs the student year from the div with the id 'test'. then it runs the function makeButtons, and receives the long-ass string of HTML buttons from there and stuffs it into the div with id 'test. so when youre moving this to teh download page, just essentially make a div with id "test", and put the @user.student_year thing in that. and then just copy all this javascript into the BOTTOM of the page. */ 
+function showClasses(){
+  var studentYear = document.getElementById('test').innerHTML;
+  
+  if (studentYear == 1){
+    var studentYear = "ms1";
+  } else if(studentYear == 2){
+    var studentYear = "ms2";
+  } else{
+    var studentYear = "ms3";
+  }
+ 
+
+  
+
+  $("#test").html(makeButtons(studentYear));
+}
+
+/*this just runs all the javascript only when the DOM is ready*/
+$(document).ready(function(){
+  showClasses();
+});
+
+
+
+
+
+
+</script>
