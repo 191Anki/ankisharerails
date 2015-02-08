@@ -1,0 +1,19 @@
+<h1> Ankishare File Upload </h1>
+
+<p>To be changed to an anki importer</p>
+
+<%= form_tag(@upload_file, :action=>'upload', :multipart => true) do %>
+<div class="field">
+  <%= label_tag :file %>
+  <%= file_field_tag :file %>
+</div>
+<div class="actions">
+  <%= submit_tag 'Submit' %>
+</div>
+
+<h2> Ankishare Downloader </h2>
+
+<p>To be changed to an anki exporter</p>
+
+<%= link_to "Download Decks" ,:action => :download, :file_name => "public/data/AnkiTest.pdf" %>
+<% end %>

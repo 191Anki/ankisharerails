@@ -1,0 +1,10 @@
+class DataFile < ActiveRecord::Base
+  attr_accessor :upload
+  
+  def self.save(upload)
+    name = upload['datafile'].original_filename
+    directory = 'public/data'
+    # create the file path
+    path = File.join(directory,name)
+    # write td
+end

@@ -1,0 +1,47 @@
+<style>
+h2{
+	font-size: 35px;
+	font-family: Lucida Sans Unicode;
+	line-height:30%;
+
+}
+h3{
+	font-size: 35px;
+	font-family: Lucida Sans Unicode;
+	line-height:30%;
+}
+</style>
+
+<h1>
+<div align="center"><a href="ankishare.com"><img src="http://i.imgur.com/v8qikwv.png" title="Logo" width="1000" height="100"/></a></div></h1>
+<br>
+<br>
+<br>
+<h2>
+<div align="center">upload
+<HR width="20%" size="3" color="black">
+</div>
+</h2>
+<p>
+<div align="center"><%= form_tag({:action => 'create'}, :multipart => true) do %>
+<p><label for="upload_file"></label>
+    <%= file_field 'upload', 'datafile' %></p>
+<%= submit_tag "Upload" %></div>
+</p>
+<br>
+<br>
+<h3>
+<div align="center">download
+<HR width="20%" size="3" color="black"></div>
+</h3>
+<div align="center"><table>
+<ul>
+<% @files = Dir.glob("public/data/*.*") %>
+<% for file in @files %>
+<% new_file = file.to_s %>
+<% new_file2 = new_file.gsub('public/data/', '') %>
+<li> <%= link_to new_file2, :action => :getfile, :path =>@new_file, :type => new_file %></li>
+<% end %>
+</ul>
+</table></div>
+<% end %>
