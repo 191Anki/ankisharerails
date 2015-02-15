@@ -1,0 +1,58 @@
+%table.table
+  %tr
+    %th 
+      .row
+        .col-md-3
+          %p Class
+        .col-md-2
+          %p= link_to "&#9650;".html_safe, "/decks/index?sort_column=class_name_id&sort_direction=asc"
+          %p= link_to "&#9660;".html_safe, "/decks/index?sort_column=class_name_id&sort_direction=desc"
+
+    %th 
+      .row
+        .col-md-6
+          %p Year
+
+    %th 
+      .row
+        .col-md-6
+          %p Professor
+        .col-md-2
+          %p= link_to "&#9650;".html_safe, "/decks/index?sort_column=professor_id&sort_direction=asc"
+          %p= link_to "&#9660;".html_safe, "/decks/index?sort_column=professor_id&sort_direction=desc"
+
+    %th 
+      .row
+        .col-md-4
+          %p Topic
+        .col-md-2
+          %p= link_to "&#9650;".html_safe, "/decks/index?sort_column=topic_id&sort_direction=asc"
+          %p= link_to "&#9660;".html_safe, "/decks/index?sort_column=topic_id&sort_direction=desc"
+
+
+    %th Notes
+    %th 
+      .row
+        .col-md-4
+          %p Upload Date
+        .col-md-2
+          %p= link_to "&#9650;".html_safe, "/decks/index?sort_column=created_at&sort_direction=asc"
+          %p= link_to "&#9660;".html_safe, "/decks/index?sort_column=created_at&sort_direction=desc"
+
+    %th Download
+    %th View
+    %th Number of downloads
+     
+  - decks.each do |deck|
+    %tr
+      %td= deck.class_name_id
+      %td= deck.year_id
+      %td= deck.professor_id
+      %td= deck.topic_id
+      %td= deck.notes
+      %td= deck.created_at.to_date.to_s(:long)
+      %td= link_to "Download Deck", decks_repackage_path(:id =>deck.id), class: "btn btn-primary"
+      %td= link_to "View", cards_show_path(:id => deck.id), class: "btn btn-primary"
+      %td= deck.counter  
+  = will_paginate decks, renderer: BootstrapPagination::Rails
+
