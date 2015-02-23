@@ -1,0 +1,117 @@
+.page-header{ :style => 'margin-bottom: 20px; text-align:right;' }
+  .row
+    .col-md-8
+      %p
+    .col-md-1{ :style => 'padding:0px;'}
+      %p
+        = link_to "Upload Decks", new_deck_path, class: "btn btn-primary"
+    .col-md-2{ :style => 'padding: 0px;'}
+      %p
+        = link_to "Account Settings",  profile_index_path, class: "btn btn-primary"
+    .col-md-1{ :style => 'padding: 0px;'}
+      %p
+        = link_to "FAQ", profile_faq_path, class: "btn btn-primary"
+.page-header-1{ :style => 'margin-bottom: 70px; text-align:center;' }
+  %h1
+    = image_tag("http://i.imgur.com/v8qikwv.png", :size=>"500x100")
+
+.filter{ :style => 'font-size: 20px;' }
+  %p Filter  
+
+.well
+  = form_for @filterrific do |f|
+    .row
+      .col-md-4
+        .form-group
+          .test
+            = @user.student_year
+            %label Anatomy
+            = f.check_box :with_class_name_id, {}, 'Anatomy & Embryology', '' 
+                         
+                     
+      .col-md-4
+        .form-group
+          %label Topic
+          = f.text_field :with_topic_id,
+                         :class => 'filterrific-periodically-observed form-control'
+
+      .col-md-4
+        .form-group
+          %label Professor
+          = f.text_field :with_professor_id,
+                         :class => 'filterrific-periodically-observed form-control'
+
+      .col-md-4
+        .form-group
+          %label Upload Date
+          = f.text_field :with_created_at_gte,
+                         :class => 'filterrific-periodically-observed form-control'
+      .col-md-4
+        .form-group
+          %label Sorted by
+          = f.select :sorted_by,
+                     Deck.options_for_sorted_by,
+                     {},
+                     { :class => 'form-control' }
+
+#results
+  = render :partial => 'decks/list',
+           :locals => { :decks => @decks }
+
+:javascript
+
+  function makeButtons(studentYear){
+    var ms1 = ["Anatomy & Embryology", "Neurosciences", "Histology",
+             "Behavioral Science and Medical Ethics", "Medical Genetics",
+             "Medical Physiology", "Immunology", "Clinical Foundations",
+             "Medical Biochemistry and Molecular Biology"];
+
+    var ms2 = ["Behavioral Science and Medical Ethics II", "Medical Microbiology", "General & Systemic Pathology",
+             "Clinical Pathology", "Medical Pharmacology", "Clinical Foundations II"];
+
+    var ms3 = ["Obsetrics & Gynecology", "Surgery", "Inpatient & Ambulatory Medicine",
+             "Pediatrics", "Psychiatry", "Radiology", "CF IV", "Emergency Medicine",
+             "Clinical Foundations II", "Family Medicine", "Senior Intensive Care Unit",
+             "Neuroscience", "Senior Sub Internship"];
+
+    var ms4 = ["Obsetrics & Gynecology", "Surgery", "Inpatient & Ambulatory Medicine",
+             "Pediatrics", "Psychiatry", "Radiology", "CF IV", "Emergency Medicine",
+             "Clinical Foundations II", "Family Medicine", "Senior Intensive Care Unit",
+             "Neuroscience", "Senior Sub Internship"];
+
+    if (studentYear == "ms1"){
+      classList = ms1;
+    } else if (studentYear == "ms2"){
+      classList = ms2;
+    } else {
+      classList = ms3;
+    }
+
+    var buttonList = "";
+    classCount = classList.length;
+
+    for (i = 0; i < classCount; i++){
+      buttonList +='<button>' + classList[i] + '</button>&nbsp;&nbsp;&nbsp;';
+    }
+    return buttonList;
+  }
+
+  function showClasses(){
+    var studentYear = document.getElementById('test').innerHTML;
+
+    if (studentYear == 1){
+      var studentYear = "ms1";
+    } else if(studentYear == 2){
+      var studentYear = "ms2";
+    } else{
+      var studentYear = "ms3";
+    }
+
+    $("#test").html(makeButtons(studentYear));
+  }
+
+  /*this just runs all the javascript only when the DOM is ready*/
+  $(document).ready(function(){
+    showClasses();
+  });
+

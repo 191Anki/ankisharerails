@@ -1,0 +1,25 @@
+<% if @card.errors.any? %>
+  <ul>
+    <%= @card.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+    <% end %>
+  </ul>
+<% end %>
+
+<%= form_for @card do |f| %>
+  <!--<div>-->
+    <!--<%= f.label :title %>-->
+    <h3>Card Front</h3>
+ <!-- </div>-->
+  <div>
+    <%= f.cktext_area :card_front, rows: 20 %>
+  </div>
+  </br>
+  <h3> Card Back </h3>
+  <div>
+    <%= f.cktext_area :card_back, rows: 20 %>
+  </br>
+  <div>
+    <%= f.submit %>
+  </div>
+<% end %>

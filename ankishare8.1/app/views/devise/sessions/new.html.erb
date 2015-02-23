@@ -1,0 +1,43 @@
+<style>
+h2{
+font-size: 35px;
+font-family: Lucida Sans Unicode;
+line-height:30%;
+
+}
+h3{
+font-size: 35px;
+font-family: Lucida Sans Unicode;
+line-height:30%;
+}
+</style>
+
+<h1>
+<div align="center"><img src="http://i.imgur.com/v8qikwv.png" title="Logo" width="1000" height="213"/></div>
+<!--<%= link_to(image_tag("http://i.imgur.com/v8qikwv.png", :alt => "logo", :title => "Home"), "/") %>-->
+</h1>
+<br>
+<br>
+<br>
+<center>
+<h2>Welcome!</h2>
+</center>
+<center>
+<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+  <div><%= f.label :email %><br />
+  <%= f.email_field :email, autofocus: true %></div>
+
+  <div><%= f.label :password %><br />
+    <%= f.password_field :password, autocomplete: "off" %></div>
+
+  <% if devise_mapping.rememberable? -%>
+    <div><%= f.check_box :remember_me %> <%= f.label :remember_me %></div>
+  <% end -%>
+
+  <div><%= f.submit "Sign in" %></div>
+<% end %>
+</center>
+</br>
+<center>
+<%= render "devise/shared/links" %>
+</center>
