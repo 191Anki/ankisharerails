@@ -1,0 +1,67 @@
+<div class="page-header" style="margin-bottom: 20px;">
+  <div class="row">
+    <div class="col-md-4" style="text-align:left;">
+      <div id="user_nav">
+        <% if user_signed_in? %>
+          Logged in as <%= current_user.email %>
+          <%= link_to "Sign Out", destroy_user_session_path, :method => :delete %>
+        <% else %>
+          <%= link_to "Sign Up", new_user_registration_path %>
+        <% end %>
+      </div>
+      <div>
+        <%= link_to "Informatics Report", profile_show_path %>
+      </div>
+    </div>
+    <div class="col-md-3" style="padding:0px; text-align:right;">
+      <p>
+        <%= link_to "Homepage", "/", class: "btn btn-primary" %>
+      </p>
+    </div>
+    <div class="col-md-2" style="padding:0px; text-align:right;">
+      <p>
+        <%= link_to "Upload Decks", new_deck_path, class: "btn btn-primary" %>
+      </p>
+    </div>
+    <div class="col-md-2" style="padding: 0px; text-align:right;">
+      <p>
+        <%= link_to "Account Settings",  profile_index_path, class: "btn btn-primary" %>
+      </p>
+    </div>
+    <div class="col-md-1" style="padding: 0px; text-align:right;">
+      <p>
+        <%= link_to "FAQ", profile_faq_path, class: "btn btn-primary" %>
+      </p>
+    </div>
+  </div>
+</div>
+
+<center>
+  <%= link_to(image_tag("http://i.imgur.com/v8qikwv.png", :size=>"500x100", :alt=>"Ankishare Home", :title=>"Home", :controller=>"decks_controller", :action=>"index"),"/")%>
+</center>
+</br>
+<center>
+  <%= link_to "Download Deck", decks_repackage_path, class: "btn btn-primary" %>
+</center>
+</br>
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th> Flashcard Front </th>
+      <th> Flashcard Back </th>
+      <th> </th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @cards.each do |card| %>
+      <tr>
+        <td><%= raw card.card_front %></td>
+        <td><%= raw card.card_back %></td>
+        <td><%= link_to "Edit Card",{:id => card.id, :action => 'edit'} , class: "btn btn-primary" %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+
+

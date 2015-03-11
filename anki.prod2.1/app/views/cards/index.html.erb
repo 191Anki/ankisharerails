@@ -1,0 +1,26 @@
+<center>
+  <h1> Deck Title </h1>
+</center>
+<div style = "text-align: right">
+  <%= link_to "Home", decks_path %>
+</div>
+<!-- http://stackoverflow.com/questions/17532171/changing-images-relative-path-to-full-url-in-refinerycms-blog -->
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th> Flashcard Front </th>
+      <th> Flashcard Back </th>
+      <th> </th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @cards.each do |card| %>
+      <tr>
+        <td><%= raw card.card_front %></td>
+        <td><%= raw card.card_back %></td>
+        <td><%= link_to "Edit Card",{:id => card.id, :action => 'edit'} , class: "btn btn-primary" %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+

@@ -1,0 +1,121 @@
+<% if !@deck.errors.empty? %>
+  <div class="alert alert-error">
+    <ul>
+      <% @deck.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+<div class="page-header" style="margin-bottom: 20px;">
+  <div class="row">
+    <div class="col-md-4" style="text-align:left;">
+      <div id="user_nav">
+        <% if user_signed_in? %>
+          <%= link_to "Sign Out", destroy_user_session_path, :method => :delete, class: "btn btn-danger" %>
+          <%= current_user.email %>
+        <% else %>
+          <%= link_to "Sign Up", new_user_registration_path %>
+        <% end %>
+      </div>
+      <div>
+        <%= link_to "Informatics Report", profile_show_path %>
+      </div>
+    </div>
+    <div class="col-md-3" style="padding:0px; text-align:right;">
+      <p>
+        <%= link_to "Homepage", "/", class: "btn btn-primary" %>
+      </p>
+    </div>
+    <div class="col-md-2" style="padding:0px; text-align:right;">
+      <p>
+        <%= link_to "Upload Decks", new_deck_path, class: "btn btn-primary" %>
+      </p>
+    </div>
+    <div class="col-md-2" style="padding: 0px; text-align:right;">
+      <p>
+        <%= link_to "Account Settings",  profile_index_path, class: "btn btn-primary" %>
+      </p>
+    </div>
+    <div class="col-md-1" style="padding: 0px; text-align:right;">
+      <p>
+        <%= link_to "FAQ", profile_faq_path, class: "btn btn-primary" %>
+      </p>
+    </div>
+  </div>
+</div>
+
+<center>
+
+<%= link_to(image_tag("http://i.imgur.com/v8qikwv.png", :size=>"500x100", :alt=>"Ankishare Home", :title=>"Home", :controller=>"decks_controller", :action=>"index"),"/")%>
+
+</center> 
+<div class="row">
+<div class="col-xs-6">
+<h1> Deck Upload </h1>
+
+<div class="well">
+  <%= form_for @deck, html: { multipart: true } do |f| %>
+    <%= f.label :author %><br />
+    <%= f.text_field :author, :placeholder => "Enter your name" %> <br />
+    <%= f.label :year_id %><br />
+    <%= f.select :year_id, [ ['MS1',1], ['MS2',2], ['MS3',3], ['MS4',4] ], :prompt => "- Select Year -"%><br />
+    <%= f.label :class_name_id %><br />
+    <%= f.select :class_name_id, [
+                                   ['------------------------ MS1 ------------------------', ''],
+                                   ['Anatomy & Embryology'],
+                                   ['Neurosciences'],
+                                   ['Histology'],
+                                   ['Behavioral Science and Medical Ethics'],
+                                   ['Medical Genetics'],
+                                   ['Medical Physiology'],
+                                   ['Immunology'],
+                                   ['Clinical Foundations'],
+                                   ['Medical Biochemistry and Molecular Biology'],
+                                   ['------------------------ MS2 ------------------------', ''],
+                                   ['Behavioral Science and Medical Ethics II'],
+                                   ['Medical Microbiology'],
+                                   ['General & Systemic Pathology'],
+                                   ['Clinical Pathology'],
+                                   ['Medical Pathology'],
+                                   ['Clinical Foundations II'],
+                                   ['------------------------ MS3 ------------------------', ''],
+                                   ['Obstetrics & Gynecology'],
+                                   ['Surgery'],
+                                   ['Inpatient & Ambulatory Medicine'],
+                                   ['Pediatrics'],
+                                   ['Psychiatry'],
+                                   ['Radiology'],
+                                   ['Neuroscience'],
+                                   ['Clinical Foundations III'],
+                                   ['Family Medicine'],
+                                   ['------------------------ MS4 ------------------------', ''],
+                                   ['Senior Intensive Care Unit'],
+                                   ['CF IV'],
+                                   ['Senior Sub Internship']
+                                 ], :prompt => "------------------ Select a Class ------------------" %><br />
+    <%= f.label :topic_id %><br />
+    <%= f.text_field :topic_id, :placeholder => "Enter topic of deck" %><br />
+    <%= f.label :professor_id %><br />
+    <%= f.text_field :professor_id, :placeholder => "Enter professor of class" %><br />
+    <%= f.label :notes %><br />
+    <%= f.text_area :notes, :cols => "30", :rows => "5" %> <br />
+    <%= f.label :attachment %><br />
+    <%= f.file_field :attachment %> <br />
+    <%= f.submit "Upload", class: "btn btn-primary" %>
+  <% end %>
+</div>
+</div>
+<div class ="col-xs-6">
+<h2> Deck Upload Form Guidelines </h2>
+  <ul>
+    <li> Author is the student’s (author of the deck) name. This will not be available to those viewing the deck </li>
+    <li> Please note that you need to export your decks into akpg files before they can be uploaded</li>
+    <li> Topic is to the author’s discretion. Try to make it as clear as possible while keeping it short. </li>
+      <p> Ex: Within the class of General Pathology, a student has uploaded a deck with cards pertaining to Lung Pathology. The topic would be “Lung Pathology”. </p>
+    <li> Please input the professor of the particular class you have prepared the deck for. </li>
+    <li> Notes section is to detail any parameters about the topic you feel other students should know about.  Ex. For the Lung Pathology deck, the author would make a note about how this particular deck only included lectures 1-4,and did not include Lung Path 5. </li>
+    <li> Remember that these fields are to help your fellow students narrow down the decks to find the ones they need. Make sure to add any relevant information clearly, and keep it as concise as possible. </li>
+</div>
+</div>
+

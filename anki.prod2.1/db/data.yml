@@ -1,0 +1,15 @@
+
+---
+decks:
+  columns:
+  - id
+  - created_at
+  - updated_at
+  - author
+  - class_name_id
+  - year_id
+  - attachment
+  - notes
+  - professor_id
+  - topic_id
+  records: 
