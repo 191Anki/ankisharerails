@@ -1,0 +1,29 @@
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th> Class </th>
+      <th> Student Year </th>
+      <th> Professor </th>
+      <th> Topic </th>
+      <th> Notes </th>
+      <th> Uploader </th>
+      <th> Uploaded At </th>
+      <th> Delete </th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @udecks.each do |deck| %>
+      <tr>
+         <td><%= deck.class_name_id %> </td>
+         <td><%= deck.year_id %> </td>
+         <td><%= deck.professor_id %> </td>
+         <td><%= deck.topic_id %> </td>
+         <td><%= deck.notes %> </td>
+         <td><%= deck.user_name %> </td>
+         <td><%= deck.created_at.to_date.to_s(:long) %> </td>
+         <td><%= button_to "Delete",  deck, method: :delete, class: "btn btn-danger", notice: "#{deck.attachment} has been deleted" %> </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+

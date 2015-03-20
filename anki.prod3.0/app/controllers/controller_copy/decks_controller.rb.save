@@ -1,0 +1,214 @@
+# Load zip and json ruby modules
+require 'rubygems'
+require 'zip'
+require 'json'
+# Load sqlite3 module for querying the SQLITE3 database
+require 'sqlite3'
+#
+class DecksController < ApplicationController
+  before_filter :authenticate_user!  
+  helper_method :sort_column, :sort_direction
+  
+# list all decks from the database
+  def index
+    @sort = Deck.order(sort_column + ' ' + sort_direction)
+    @filterrific = Filterrific.new(
+      Deck,
+      params[ :filterrific] || session[ :filterrific_decks]
+    )
+    @decks = Deck.filterrific_find(@filterrific).page(params[ :page])
+    session[ :filterrific_decks] = @filterrific.to_hash
+
+    respond_to do |format|
+      format.html
+      format.js
+    end
+  end
+
+  def show
+
+  end
+# Reset filters
+  def reset_filterrific
+    session[ :filterrific_decks] = nil
+    redirect_to :action => :index
+  end  
+# Sort the decks by select column
+  def sort_column
+    Deck.column_names.include?(params[ :sort]) ? params[ :sort] : "name"
+  end
+# Initialize new decks
+  def new 
+    @deck = Deck.new
+  end
+# Create a new deck
+  def create
+    @deck = Deck.new(upload_params)
+    if @deck.save
+      # Save the decks attachmenti name in the session for processing
+      # by load_from_apkg
+      #
+      #new_deck_id = @deck.increment!( :deck_id)
+      session[:attachment] = @deck.attachment.to_s
+      @deck.deck_id += 1
+      redirect_to :action => "load_from_apkg", 
+		notice: "#{@deck.attachment} has been uploaded."
+    else
+      render "new"
+    end
+  end
+# Process and upload contents of the uploaded deck into the database
+# 
+
+  def increase
+    update_attributes(:deck_id => deck_id + 1)
+  end
+
+  def load_from_apkg
+    @deck = Deck.new
+    @deck.save
+ 
+   # decks are uploaded into RAILS.ROOT/public/uploads/deck/attachment
+   # instead of hardcoding this, we will dynamically assemble the file
+   # path from #{attachment} and RAILS.root variables.
+   # f_path is the location where we will unzip and process the
+   # the apkg files.
+   # Ankishare need all image files for viewing the deck.
+   # all files need to be moved to app/assets/images directory
+   # We are assuming that every image file is unique otherwise there will
+   # be a case where filest get overwritten if they are not unique.
+    
+    file_dir = Rails.root.join("public")
+    attach_file = session[:attachment]
+    file_path = File.join(file_dir,attach_file)
+
+    # Extract the apkg into a temporary directory and remove once
+    # all files are processed. We do this to address the use case where two 
+    # users trying to upload decks at the same time (since there are common 
+    # files like media, and 
+    # collections.anki2, which will get overwritten and create conflicts.
+    # Creating Staging directory and create temp directory underneath for
+    # each upload 
+    staging_dir = Rails.root.join("Staging") 
+    temp_file = Tempfile.new("X") 
+    temp_name = File.basename(temp_file)
+    
+    media_dir = File.join(staging_dir, temp_name)
+    media_file = File.join(media_dir, "media")
+    # Process Zip files package
+    Zip::File.open(file_path) do |zip_file|
+      zip_file.each do |f|
+        f_path = File.join(media_dir, f.name)
+        FileUtils.mkdir_p(File.dirname(f_path))
+        zip_file.extract(f, f_path) unless File.exist?(f_path)
+      end
+      
+      # Refer to this links for using linux commands on ruby on rails
+      # http://richonrails.com/articles/basic-file-and-directory-operations-in-ruby
+      # All ruby applicaiton image files are located under
+      # app/assets/images directory. 
+      image_asset_dir = Rails.root.join("app", "assets", "images")
+      images = JSON.parse(File.read(media_file))      
+      # Open the media file, and rename all media files with their JPG
+      # filenames. 
+      # we need to move decks image files to image directory so that views get
+      # access to that without rewriting the deck content displays(they
+      # are assumed to have all image files in rail default image directory.
+      #
+      Dir.chdir(media_dir)
+      images.each do |key, value|
+	# Copy them to rail application image directory
+	File.rename(key, File.join(image_asset_dir,value))
+      end
+ 
+    end    
+
+    # Possibly try this: http://zetcode.com/db/sqliteruby/queries/
+    # TODO: replace with SQLITE module calls
+    `sqlite3 -csv collection.anki2 "SELECT flds, sfld FROM notes" > deck.csv`
+    
+    require 'csv'
+    deck_data = CSV.foreach('deck.csv') do |row|
+      puts row.inspect
+      card = Card.new
+      card.card_front = row[1]
+      card.card_back = row[0]
+      card.deck_id = @deck.deck_id
+      card.save
+    end
+    # We processed all decks and uploaded them into the database.
+    # now we should clean up the directory and its contents
+    FileUtils.rm_rf(media_dir)
+    # Also, cleanup the tempfile we created
+    FileUtils.rm(temp_file)
+    #
+    redirect_to decks_path, notice: "#{@deck.attachment} has been uploaded."
+
+  end
+
+  def edit
+    @card = Card.find(@deck.deck_id)
+    redirect_to edit_cards_path, notice: "Finished."
+    #redirect_to :action => "repackage",
+    #            notice: "#{@deck.attachment} has been updated."
+  end
+
+  def destroy
+    @deck = Deck.find(params[ :id])
+    @deck.destroy
+    redirect_to decks_path, notice: "#{@deck.attachment} has been deleted."
+  end
+
+  def repackage
+    require 'rubygems'
+    require 'zip'
+
+    folder = "";
+    input_files = ['*']
+    zipfile_name = "/root/ankishare3.1/#{@deck.attachment}"
+    media_file = "media"
+
+    # Add to media file new extensions for added photos
+    # i.e 25, paste-12345.jpg
+    # Rename images to numbers using JSON
+    images = JSON.parse(File.read(media_file))   
+    Dir.chdir(media_dir)
+      images.each do |value, key|
+        # Copy them to rail application image directory
+        File.rename(key, File.join(image_asset_dir,value))
+      end
+
+    `sqlite3 -csv development.sqlite3 "SELECT card_front, card_back FROM cards" > import.csv`
+    # Import csv file into collection.anki2
+    # Replaces the sflds and flds
+   
+    Zip::File.open(zipfile_name, Zip::File::CREATE) do |zipfile|
+      input_filenames.each do |filename|
+        zipfile.add(filename, folder + '/' + filename)
+      end
+      zipfile.get_output_stream("myFile") { |os| os.write "myFile contains just this" }
+    end
+
+  end
+
+  private
+    def upload_params
+      params.require( :deck).permit( :author, :topic_id, :attachment, :class_name_id, :year_id, :professor_id)
+    end
+
+  def extension_white_list
+    %w(apkg)
+  end
+
+  private
+  def sort_column
+    Deck.column_names.include?(params[:sort]) ? params[:sort] : "name"
+  end
+   
+  def sort_direction
+    %w[asc desc].include?(params[:direction]) ?  params[:direction] : "asc"
+  end
+
+end
+
+

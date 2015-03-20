@@ -1,0 +1,44 @@
+// Typed with set ts=2 in vi
+// vamsi koduru
+Changes in as31v
+(1). Database Changes
+   Cards table to change the deck_id to VARCHAR(255) to
+   integer. Each deck has one or more cards. Each card belong
+   to a particular deck. deck_id is the primary key in decks
+   table and cards.deck_id is the foriegn key in Cards.
+   each card is uniquely identified by cards.id.
+   Why do we need cards.card_id and decks.deck_id? 
+   There are unique keys created by ActiveRecord system.
+   we can use decks.id and cards.id as unique keys to reference
+   and associate decks and cards.
+   For now, deck_id = id and cards_deck.id is blank.
+   updated code to set cards.deck_id = decks.id, so that we can
+   list all cards for a given deck or we can edit a specific
+   deck or a card.
+
+   Created Migration code in app/db/migration.
+
+
+(2). File Management
+    Now that we mapped decks to cards. We manage all files for a given
+    deck in Staging directory under the app. This can be made configurable
+    later. We create a directory for every deck  with the deck_id as the
+    directory name which makes it easy for us to repackage the cards for a
+    given deck after changes are applied to the deck. 
+
+    No files are deleted. we keep image files in the same directory.
+    We still need to figure out a way to tell Rails to read all images
+    from this directory.
+
+(3). Editing Cards
+     Edit form works but still need to fix rough edges
+
+(4). Work In Progress/TODO
+     Try to parse the front and back of the decks to replace <img>
+     strings with appropriate image locations so taht RAILS would
+     render them correctly. Installed new gem Nokogiri commonly used
+     for processign HTML fragments. Since we store front and back of
+     the decks in database and need to process them to replace 
+     any img paths with rails specific one. Once this is fixed, we 
+     can fine tune all other stuff.
+

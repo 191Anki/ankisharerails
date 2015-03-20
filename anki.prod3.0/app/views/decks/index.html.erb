@@ -1,0 +1,204 @@
+<div class="page-header" style="margin-bottom: 20px;">
+  <div class="row">
+    <div class="col-md-4" style="text-align:left;">
+      <div id="user_nav">
+        <% if user_signed_in? %>
+          <%= link_to "Sign Out", destroy_user_session_path, :method => :delete, class: "btn btn-danger" %>
+          <%= current_user.email %>
+        <% else %>
+          <%= link_to "Sign Up", new_user_registration_path %>
+        <% end %>
+      </div>
+      <div>
+        <%= link_to "Informatics Report", profile_show_path  %>
+      </div>
+    </div>
+    <div class="col-md-3" style="padding:0px; text-align:right;">
+      <p>
+        <%= link_to "Homepage", "/", class: "btn btn-primary" %>
+      </p>
+    </div>
+    <div class="col-md-2" style="padding:0px; text-align:right;">
+      <p>
+        <%= link_to "Upload Decks", new_deck_path, class: "btn btn-primary" %>
+      </p>
+    </div>
+    <div class="col-md-2" style="padding: 0px; text-align:right;">
+      <p>
+        <%= link_to "Account Settings",  profile_index_path, class: "btn btn-primary" %>
+      </p>
+    </div>
+    <div class="col-md-1" style="padding: 0px; text-align:right;">
+      <p>
+        <%= link_to "FAQ", profile_faq_path, target: '_blank', class: "btn btn-primary" %>
+      </p>
+    </div>
+  </div>
+</div>
+
+<div class="page-header-1" style="margin-bottom: 15px; text-align:center;">
+  <h1>
+    <%= image_tag("http://i.imgur.com/v8qikwv.png", :size=>"500x100") %>
+  </h1>
+</div>
+
+<div id='test' style='visibility:hidden;'>
+  <%= @user.student_year%>
+</div>
+
+<div class="well">
+  
+  <%= form_for @filterrific do |f| %>
+    <div class="row">
+     <div class="title" style="font-size:25px; text-align:center;">
+       <label> Filter </label>
+     </div>
+     <div class="title" style="font-size:15px;">
+       <label> 
+         Classes 
+       </label>
+     </div>
+      <div class="col-md-4">
+        <div class="form-group">
+          <div id='one'>
+            <%= f.radio_button :with_class_name_id, 'Anatomy & Embryology' %>
+            <label>Anatomy & Embryology</label></br>
+            <%= f.radio_button :with_class_name_id, 'Neurosciences' %>
+            <label>Neurosciences</label></br>
+            <%= f.radio_button :with_class_name_id, 'Histology' %>
+            <label>Histology</label>
+          </div>
+          <div id='two'>
+            <%= f.radio_button :with_class_name_id, 'Behavioral Science and Medical Ethics II' %>
+            <label>Behavioral Science and Medical Ethics II</label></br>
+            <%= f.radio_button :with_class_name_id, 'Medical Microbiology' %>
+            <label>Medical Microbiology</label></br>
+          </div>
+          <div id='three'>
+            <%= f.radio_button :with_class_name_id, 'Obstetrics & Gynecology' %>
+            <label>Obstetrics & Gynecology</label></br>
+            <%= f.radio_button :with_class_name_id, 'Surgery' %>
+            <label>Surgery</label></br>
+            <%= f.radio_button :with_class_name_id, 'Inpatient & Ambulatory Medicine' %>
+            <label>Inpatient & Ambulatory Medicine</label></br>
+            <%= f.radio_button :with_class_name_id, 'Pediatrics' %>
+            <label>Pediatrics</label>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="form-group">
+          <div id='one'>
+            <%= f.radio_button :with_class_name_id, 'Behavioral Science and Medical Ethics' %>
+            <label>Behavioral Science and Medical Ethics</label></br>
+            <%= f.radio_button :with_class_name_id, 'Medical Genetics' %>
+            <label>Medical Genetics</label></br>
+            <%= f.radio_button :with_class_name_id, 'Medical Physiology' %>
+            <label>Medical Physiology</label>
+          </div>
+          <div id='two'>
+            <%= f.radio_button :with_class_name_id, 'Clinical Pathology' %>
+            <label>Clinical Pathology</label></br>
+            <%= f.radio_button :with_class_name_id, 'Medical Pathology' %>
+            <label>Medical Pathology</label></br>
+            <%= f.radio_button :with_class_name_id, 'Clinical Foundations II' %>
+            <label>Clinical Foundations II</label>
+          </div>
+          <div id='three'>
+            <%= f.radio_button :with_class_name_id, 'Psychiatry' %>
+            <label>Psychiatry</label></br>
+            <%= f.radio_button :with_class_name_id, 'Radiology' %>
+            <label>Radiology</label></br>
+            <%= f.radio_button :with_class_name_id, 'Neurosciences' %>
+            <label>Neurosciences</label></br>
+            <%= f.radio_button :with_class_name_id, 'Clinical Foundations III' %>
+            <label>Clinical Foundations III</label>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="form-group">
+          <div id='one'>
+            <%= f.radio_button :with_class_name_id, 'Immunology' %>
+            <label>Immunology</label></br>
+            <%= f.radio_button :with_class_name_id, 'Clinical Foundations' %>
+            <label>Clinical Foundations</label></br>
+            <%= f.radio_button :with_class_name_id, 'Medical Biochemistry and Molecular Biology' %>
+            <label>Medical Biochemistry and Molecular Biology</label>
+          </div>
+          <div id='two'>
+            <%= f.radio_button :with_class_name_id, 'General & Systemic Pathology' %>
+            <label>General & Systemic Pathology</label>
+          </div>
+          <div id='three'>
+            <%= f.radio_button :with_class_name_id, 'Family Medicine' %>
+            <label>Family Medicine</label></br>
+            <%= f.radio_button :with_class_name_id, 'Senior Intensive Care Unit' %>
+            <label>Senior Intensive Care Unit</label></br>
+            <%= f.radio_button :with_class_name_id, 'CF IV' %>
+            <label>CF IV</label></br>
+            <%= f.radio_button :with_class_name_id, 'Senior Sub Internship' %>
+            <label>Senior Sub Internship</label>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-4">
+        <div class="form-group">
+          <label>Topic</label>
+          <%= f.text_field :with_topic_id, :class => 'filterrific-periodically-observed form-control' %>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="form-group">
+          <label>Professor</label>
+          <%= f.text_field :with_professor_id, :class => 'filterrific-periodically-observed form-control' %>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="form-group">
+          <label>Upload Date</label>
+          <%= f.text_field :with_created_at_gte, :placeholder => "yyyy-mm-dd", :class => 'filterrific-periodically-observed form-control' %>
+        </div>
+      </div>
+    </div>
+        
+  <% end %>
+
+  <center>
+    <%= link_to "Clear Filter", decks_reset_path, :class => 'btn btn-default btn-sm'%> </label>
+  </center>
+</div>
+
+<div id="results">
+  <%= render :partial => 'decks/list', :locals => { :decks => @decks } %>
+</div>
+
+<script>
+  function showClasses(){
+    var studentYear = document.getElementById('test').innerHTML;
+    console.log("yay");
+    if (studentYear == 1){
+      $('div#two').hide();
+      $('div#three').hide();
+    } else if(studentYear == 2){
+      $("div#one").hide();
+      $("div#three").hide();
+    } else{
+      $("div#two").hide();
+      $("div#one").hide();
+    }
+    console.log(studentYear);
+  }
+
+  
+/*just runs all the javascript only when the DOM is ready*/
+  $(document).ready(function(){
+    showClasses();
+  });  
+
+ 
+  
+</script>
+

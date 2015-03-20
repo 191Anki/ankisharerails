@@ -1,0 +1,88 @@
+<div class="page-header" style="margin-bottom: 20px;">
+  <div class="row">
+    <div class="col-md-4" style="text-align:left;">
+      <div id="user_nav">
+        <% if user_signed_in? %>
+          <%= link_to "Sign Out", destroy_user_session_path, :method => :delete, class: "btn btn-danger" %>
+          <%= current_user.email %>
+        <% else %>
+          <%= link_to "Sign Up", new_user_registration_path %>
+        <% end %>
+      </div>
+      <div>
+        <%= link_to "Informatics Report", profile_show_path %>
+      </div>
+    </div>
+    <div class="col-md-3" style="padding:0px; text-align:right;">
+      <p>
+        <%= link_to "Homepage", "/", class: "btn btn-primary" %>
+      </p>
+    </div>
+    <div class="col-md-2" style="padding:0px; text-align:right;">
+      <p>
+        <%= link_to "Upload Decks", new_deck_path, class: "btn btn-primary" %>
+      </p>
+    </div>
+    <div class="col-md-2" style="padding: 0px; text-align:right;">
+      <p>
+        <%= link_to "Account Settings",  profile_index_path, class: "btn btn-primary" %>
+      </p>
+    </div>
+    <div class="col-md-1" style="padding: 0px; text-align:right;">
+      <p>
+        <%= link_to "FAQ", profile_faq_path, target: '_blank', class: "btn btn-primary" %>
+      </p>
+    </div>
+  </div>
+</div>
+
+<center>
+
+<%= link_to(image_tag("http://i.imgur.com/v8qikwv.png", :size=>"500x100", :alt=>"Ankishare Home", :title=>"Home", :controller=>"decks_controller", :action=>"index"),"/")%>
+
+</center>
+
+
+
+<h1> Decks </h1>
+
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th> Name </th>
+      <th> Number of Downloads </th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @decks.each do |deck| %>
+      <tr>
+         <td><%= deck.attachment %> </td>
+         <td><%= deck.counter %> </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<h1> Users </h1>
+
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th> Name </th>
+      <th> Number of edits </th>
+      <th> Number of uploads </th>
+      <th> Number of downloads </th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @users.each do |user| %>
+      <tr>
+         <td><%= user.email %> </td>
+         <td><%= user.ecounter %> </td>
+         <td><%= user.ucounter %> </td>
+         <td><%= user.dcounter %> </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+

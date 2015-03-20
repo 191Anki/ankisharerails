@@ -1,0 +1,1 @@
+FCKConfig.FormatOutput = false ;
